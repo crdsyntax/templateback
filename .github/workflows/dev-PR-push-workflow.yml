@@ -2,9 +2,9 @@ name: pr-check-validation
 
 on:
   push:
-    branches: [dev]
+    branches: [dev, main, master]
   pull_request:
-    branches: [dev]
+    branches: [dev, main, master]
 
 jobs:
 
