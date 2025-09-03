@@ -4,9 +4,15 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './config/data.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { CommonModule } from './common/common.module';
 
 @Module({
-  imports: [DatabaseModule, AuthModule, UserModule],
+  imports: [
+    DatabaseModule, 
+    AuthModule, 
+    UserModule,
+    CommonModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
