@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { HttpLog, HttpLogDocument } from '../schemas/http-log.schema';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { HttpLog, HttpLogDocument } from "../schemas/http-log.schema";
 
 @Injectable()
 export class HttpLoggerService {
@@ -18,8 +18,8 @@ export class HttpLoggerService {
       body: this.sanitizeBody(body),
       query: query || {},
       params: params || {},
-      ip: this.getClientIp(request) || '',
-      userAgent: headers?.['user-agent'] || '',
+      ip: this.getClientIp(request) || "",
+      userAgent: headers?.["user-agent"] || "",
     });
 
     const savedLog = await log.save();
@@ -34,9 +34,9 @@ export class HttpLoggerService {
     if (!body) return body;
     const sanitized = { ...body };
 
-    ['password', 'token', 'accessToken', 'refreshToken'].forEach((field) => {
+    ["password", "token", "accessToken", "refreshToken"].forEach((field) => {
       if (sanitized[field]) {
-        sanitized[field] = '***REDACTED***';
+        sanitized[field] = "***REDACTED***";
       }
     });
 
@@ -45,7 +45,7 @@ export class HttpLoggerService {
 
   private getClientIp(request: any): string {
     return (
-      request.headers['x-forwarded-for'] ||
+      request.headers["x-forwarded-for"] ||
       request.connection.remoteAddress ||
       request.socket.remoteAddress ||
       request.connection.socket?.remoteAddress

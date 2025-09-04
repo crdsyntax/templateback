@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcryptjs';
-import { UserRepository } from '../user/repositorys/user.repository';
-import { UserDocument } from '../user/schemas/user.schema';
+import { Injectable } from "@nestjs/common";
+import { JwtService } from "@nestjs/jwt";
+import * as bcrypt from "bcryptjs";
+import { UserRepository } from "../user/repositorys/user.repository";
+import { UserDocument } from "../user/schemas/user.schema";
 
 @Injectable()
 export class AuthService {
@@ -18,7 +18,7 @@ export class AuthService {
     const user = await this.userRepo.findByUsername(username);
     if (!user) return null;
 
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await bcrypt.compare(password, user.passwordHash);
     if (!isMatch) return null;
 
     const { ...result } = user.toObject();

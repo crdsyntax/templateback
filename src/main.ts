@@ -1,11 +1,11 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { setupSwagger } from './config/swagger.config';
-import { Logger, ValidationPipe } from '@nestjs/common';
-import { join } from 'path';
-import { NestExpressApplication } from '@nestjs/platform-express';
-import { corsOptions } from './config/cors.config';
-import { setupSwaggerAuth } from './config/swagger-auth.config';
+import { NestFactory } from "@nestjs/core";
+import { AppModule } from "./app.module";
+import { setupSwagger } from "./config/swagger.config";
+import { Logger, ValidationPipe } from "@nestjs/common";
+import { join } from "path";
+import { NestExpressApplication } from "@nestjs/platform-express";
+import { corsOptions } from "./config/cors.config";
+import { setupSwaggerAuth } from "./config/swagger-auth.config";
 
 const logger = new Logger(bootstrap.name);
 async function bootstrap() {
@@ -15,8 +15,8 @@ async function bootstrap() {
   setupSwaggerAuth(app);
 
   app.enableCors(corsOptions);
-  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
-    prefix: '/uploads/',
+  app.useStaticAssets(join(__dirname, "..", "uploads"), {
+    prefix: "/uploads/",
   });
 
   app.useGlobalPipes(
@@ -28,10 +28,23 @@ async function bootstrap() {
     }),
   );
 
-  await app.listen(process.env.PORT ?? 3000);
+  /*   app.connectMicroservice({
+    transport: Transport.TCP,
+    options: {
+      host: HOST,
+      port: Number(PORT),
+    },
+  }); */
+
+  await app.startAllMicroservices();
+  await app.listen(process.env.PORT || 3001);
+
+  logger.log(
+    `🚀 ~ Servidor iniciado en el puerto: ${process.env.PORT || 3001}`,
+  );
 }
 
 bootstrap().catch((err) => {
-  logger.error('Error starting application:', err);
+  logger.error("Error starting application:", err);
   process.exit(1);
 });
