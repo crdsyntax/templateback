@@ -1,4 +1,4 @@
-import { Injectable, NestMiddleware, Inject, Logger } from '@nestjs/common';
+import { Injectable, NestMiddleware, Logger } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { HttpLoggerService } from '../services/http-logger.service';
 
@@ -21,7 +21,7 @@ export class HttpLoggerMiddleware implements NestMiddleware {
 
     try {
       logId = await this.httpLoggerService.logRequest(request);
-      
+
       response.on('finish', async () => {
         try {
           const { statusCode } = response;

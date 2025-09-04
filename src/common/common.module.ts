@@ -13,8 +13,6 @@ import { HttpLoggerService } from './services/http-logger.service';
 })
 export class CommonModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(HttpLoggerMiddleware)
-      .forRoutes('*'); // Apply to all routes
+    consumer.apply(HttpLoggerMiddleware).forRoutes('*'); // Apply to all routes
   }
 }

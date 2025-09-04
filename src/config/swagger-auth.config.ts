@@ -1,7 +1,5 @@
-
 import { INestApplication } from '@nestjs/common';
 const basicAuth = require('express-basic-auth');
-
 
 const SWAGGER_ENVS = ['development', 'staging'];
 
@@ -12,7 +10,8 @@ export function setupSwaggerAuth(app: INestApplication) {
       basicAuth({
         challenge: true,
         users: {
-          [process.env.SWAGGER_USER || 'admin']: process.env.SWAGGER_PASSWORD || 'admin',
+          [process.env.SWAGGER_USER || 'admin']:
+            process.env.SWAGGER_PASSWORD || 'admin',
         },
       }),
     );

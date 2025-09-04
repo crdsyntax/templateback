@@ -10,8 +10,8 @@ export class HttpLoggerService {
   ) {}
 
   async logRequest(request: any): Promise<string> {
-    const { method, originalUrl, body, query, params, ip, headers } = request;
-    
+    const { method, originalUrl, body, query, params, headers } = request;
+
     const log = new this.httpLogModel({
       method: method as string,
       url: originalUrl as string,
@@ -33,13 +33,13 @@ export class HttpLoggerService {
   private sanitizeBody(body: any) {
     if (!body) return body;
     const sanitized = { ...body };
-    
-    ['password', 'token', 'accessToken', 'refreshToken'].forEach(field => {
+
+    ['password', 'token', 'accessToken', 'refreshToken'].forEach((field) => {
       if (sanitized[field]) {
         sanitized[field] = '***REDACTED***';
       }
     });
-    
+
     return sanitized;
   }
 

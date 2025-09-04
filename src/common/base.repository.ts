@@ -19,7 +19,9 @@ export class BaseRepository<T> {
 
   async update(id: string, data: Partial<T>): Promise<T | null> {
     if (!Types.ObjectId.isValid(id)) return null;
-    return this.model.findByIdAndUpdate(id, data, { new: true }).exec() as Promise<T | null>;
+    return this.model
+      .findByIdAndUpdate(id, data, { new: true })
+      .exec() as Promise<T | null>;
   }
 
   async delete(id: string): Promise<T | null> {

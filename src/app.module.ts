@@ -6,12 +6,7 @@ import { UserModule } from './user/user.module';
 import { CommonModule } from './common/common.module';
 
 @Module({
-  imports: [
-    DatabaseModule, 
-    AuthModule, 
-    UserModule,
-    CommonModule,
-  ],
+  imports: [DatabaseModule, AuthModule, UserModule, CommonModule],
   controllers: [AppController],
   providers: [],
 })
