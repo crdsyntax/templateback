@@ -23,40 +23,112 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project is a backend template built with NestJS and MongoDB, intended as a solid starting point for building APIs.
+As a reference implementation, it does not guarantee to be free of security vulnerabilities.
 
-## Project setup
+The code includes features like JWT authentication, data validation, and environment-based configuration.
+
+Do not use this project in production without a proper security review and the implementation of additional best practices (e.g., HTTP security headers, encryption in transit and at rest, dependency audits).
+
+If you discover a vulnerability, please report it by following the instructions in SECURITY.md
+
+## 🚀 Tech Stack
+
+- **Framework**: [NestJS](https://nestjs.com/) (v11)
+- **Language**: TypeScript
+- **Database**: MongoDB with Mongoose
+- **Authentication**: JWT with Passport
+- **API Documentation**: Swagger/OpenAPI
+- **Validation**: Class Validator & Class Transformer
+- **Testing**: Jest (Unit & E2E tests)
+- **Code Quality**: ESLint & Prettier
+- **Task Scheduling**: @nestjs/schedule
+- **Environment Management**: @nestjs/config
+
+## 🛠️ Project Setup
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/templateback.git
+   cd yourproyect
+   ```
+
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
+
+3. **Environment Setup**
+   - Copy `.env.example` to `.env`
+   - Update the environment variables in `.env` with your configuration
+
+4. **Database**
+   - Ensure MongoDB is installed and running
+   - Update the database connection string in `.env`
+
+## 🚀 Running the Application
+
+### Development
 
 ```bash
-$ pnpm install
-```
-
-## Compile and run the project
-
-```bash
-# development
-$ pnpm run start
-
-# watch mode
+# Start in development mode with hot-reload
 $ pnpm run start:dev
 
-# production mode
+# Access the application at http://localhost:3000
+# API documentation available at http://localhost:3000/api/docs
+```
+
+### Production
+
+```bash
+# Build the application
+$ pnpm run build
+
+# Start in production mode
 $ pnpm run start:prod
 ```
 
-## Run tests
+## 🧪 Testing
 
 ```bash
-# unit tests
+# Run unit tests
 $ pnpm run test
 
-# e2e tests
+# Run e2e tests
 $ pnpm run test:e2e
 
-# test coverage
+# Generate test coverage report
 $ pnpm run test:cov
+
+# Run tests in watch mode
+$ pnpm run test:watch
 ```
 
+## 📚 API Documentation
+
+Once the application is running, you can access the interactive API documentation at:
+- Swagger UI: `http://localhost:3000/api/docs`
+- JSON format: `http://localhost:3000/api/docs-json`
+
+## 📦 Project Structure
+
+```
+src/
+├── auth/               # Authentication module
+├── common/             # Common utilities and shared code
+├── config/             # Application configuration
+├── event-failure/      # Event failure handling
+├── user/               # User management
+└── main.ts             # Application entry point
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
