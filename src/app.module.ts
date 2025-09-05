@@ -6,6 +6,7 @@ import { UserModule } from "./user/user.module";
 import { CommonModule } from "./common/common.module";
 import { ConfigModule } from "@nestjs/config";
 import { EventFailureModule } from './event-failure/event-failure.module';
+import { ChatModule } from "./chat/chat.module";
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { EventFailureModule } from './event-failure/event-failure.module';
     CommonModule,
     EventFailureModule,
     EventFailureModule,
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [],
