@@ -43,7 +43,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       encryptedMessage: any;
       encryptedKey: string;
     },
-    @ConnectedSocket() client: Socket
   ) {
     await this.chatService.saveMessage(data);
 
@@ -55,11 +54,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   async loadMessages(
     @MessageBody()
     { userId, recipientId }: { userId: string; recipientId: string },
-    @ConnectedSocket() client: Socket
+    @ConnectedSocket() client: Socket,
   ) {
     const messages = await this.chatService.getMessagesBetween(
       userId,
-      recipientId
+      recipientId,
     );
     client.emit("receive_messages_history", messages);
   }

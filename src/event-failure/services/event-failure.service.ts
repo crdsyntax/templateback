@@ -8,7 +8,8 @@ import { Model } from "mongoose";
 export class SafeEventEmitter {
   constructor(
     private readonly eventEmitter: EventEmitter2,
-    @InjectModel(EventFailure.name) private readonly eventFailModel: Model<EventFailure>,
+    @InjectModel(EventFailure.name)
+    private readonly eventFailModel: Model<EventFailure>,
   ) {}
 
   async emitSafe(eventName: string, payload: any) {

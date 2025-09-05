@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller } from "@nestjs/common";
 
-@Controller('event-failure')
+@Controller("event-failure")
 export class EventFailureController {}

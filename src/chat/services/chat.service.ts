@@ -14,7 +14,7 @@ interface dataEncrypted {
 export class ChatService {
   constructor(
     @InjectModel(ChatMessage.name)
-    private chatModel: Model<ChatMessage>
+    private chatModel: Model<ChatMessage>,
   ) {}
 
   async saveMessage(msg: dataEncrypted) {
