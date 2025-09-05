@@ -49,8 +49,8 @@ If you discover a vulnerability, please report it by following the instructions 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/apinogarq.git
-   cd apinogarq
+   git clone https://github.com/yourusername/templateback.git
+   cd yourproyect
    ```
 
 2. **Install dependencies**
@@ -75,7 +75,7 @@ If you discover a vulnerability, please report it by following the instructions 
 $ pnpm run start:dev
 
 # Access the application at http://localhost:3000
-# API documentation available at http://localhost:3000/api
+# API documentation available at http://localhost:3000/api/docs
 ```
 
 ### Production
@@ -107,8 +107,8 @@ $ pnpm run test:watch
 ## 📚 API Documentation
 
 Once the application is running, you can access the interactive API documentation at:
-- Swagger UI: `http://localhost:3000/api`
-- JSON format: `http://localhost:3000/api-json`
+- Swagger UI: `http://localhost:3000/api/docs`
+- JSON format: `http://localhost:3000/api/docs-json`
 
 ## 📦 Project Structure
 
