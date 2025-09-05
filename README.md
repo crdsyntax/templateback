@@ -23,7 +23,14 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This project is a backend template built with NestJS and MongoDB, intended as a solid starting point for building APIs.
+As a reference implementation, it does not guarantee to be free of security vulnerabilities.
+
+The code includes features like JWT authentication, data validation, and environment-based configuration.
+
+Do not use this project in production without a proper security review and the implementation of additional best practices (e.g., HTTP security headers, encryption in transit and at rest, dependency audits).
+
+If you discover a vulnerability, please report it by following the instructions in SECURITY.md
 
 ## 🚀 Tech Stack
 
