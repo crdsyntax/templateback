@@ -4,9 +4,19 @@ import { DatabaseModule } from "./config/data.module";
 import { AuthModule } from "./auth/auth.module";
 import { UserModule } from "./user/user.module";
 import { CommonModule } from "./common/common.module";
+import { ConfigModule } from "@nestjs/config";
+import { EventFailureModule } from './event-failure/event-failure.module';
 
 @Module({
-  imports: [DatabaseModule, AuthModule, UserModule, CommonModule],
+  imports: [
+    ConfigModule.forRoot(),
+    DatabaseModule,
+    AuthModule,
+    UserModule,
+    CommonModule,
+    EventFailureModule,
+    EventFailureModule,
+  ],
   controllers: [AppController],
   providers: [],
 })

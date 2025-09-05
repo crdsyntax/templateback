@@ -1,7 +1,10 @@
-import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseModule } from "@nestjs/mongoose";
+
+const CONNECTION = process.env.DB_URI;
+const DATABASE = process.env.DB;
 
 export const DatabaseProviders = [
-  MongooseModule.forRoot('mongodb://localhost:27017/dbnow', {
-    dbName: 'dbnow',
+  MongooseModule.forRoot(CONNECTION || "", {
+    dbName: DATABASE,
   }),
 ];

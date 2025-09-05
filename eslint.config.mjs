@@ -43,6 +43,8 @@ export default tseslint.config(
           endOfLine: "lf",
         },
       ],
+      'no-console': ['error'],
+      'no-inline-comments': ['error'],
     },
   },
 );
