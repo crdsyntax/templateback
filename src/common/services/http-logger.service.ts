@@ -6,7 +6,7 @@ import { HttpLog, HttpLogDocument } from "../schemas/http-log.schema";
 @Injectable()
 export class HttpLoggerService {
   constructor(
-    @InjectModel(HttpLog.name) private httpLogModel: Model<HttpLogDocument>
+    @InjectModel(HttpLog.name) private httpLogModel: Model<HttpLogDocument>,
   ) {}
 
   async logRequest(request: any): Promise<string> {

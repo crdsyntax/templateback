@@ -58,7 +58,7 @@ export class RoleManagerController {
   })
   async create(
     @Body() createRoleDto: CreateRoleDto,
-    @Request() req
+    @Request() req,
   ): Promise<RoleResponseDto> {
     return this.roleManagerService.create(createRoleDto, req.user.userid);
   }
@@ -99,7 +99,7 @@ export class RoleManagerController {
     @Query("page", new DefaultValuePipe(1), ParseIntPipe) page = 1,
     @Query("limit", new DefaultValuePipe(10), ParseIntPipe) limit = 10,
     @Query("search") search?: string,
-    @Query("isActive") isActive?: boolean
+    @Query("isActive") isActive?: boolean,
   ): Promise<{ data: RoleResponseDto[]; total: number }> {
     limit = limit > 100 ? 100 : limit;
     return this.roleManagerService.findAll(page, limit, search, isActive);
@@ -155,7 +155,7 @@ export class RoleManagerController {
   async update(
     @Param("id") id: string,
     @Body() updateRoleDto: UpdateRoleDto,
-    @Request() req
+    @Request() req,
   ): Promise<RoleResponseDto> {
     return this.roleManagerService.update(id, updateRoleDto, req.user.userId);
   }
@@ -175,12 +175,12 @@ export class RoleManagerController {
   async updatePermissions(
     @Param("id") id: string,
     @Body() updateDto: UpdateRolePermissionsDto,
-    @Request() req
+    @Request() req,
   ): Promise<RoleResponseDto> {
     return this.roleManagerService.updatePermissions(
       id,
       updateDto,
-      req?.user?.userId
+      req?.user?.userId,
     );
   }
 
@@ -202,12 +202,12 @@ export class RoleManagerController {
   async updateStatus(
     @Param("id") id: string,
     @Body() updateStatusDto: UpdateRoleStatusDto,
-    @Request() req
+    @Request() req,
   ): Promise<RoleResponseDto> {
     return this.roleManagerService.updateStatus(
       id,
       updateStatusDto,
-      req?.user?.userId
+      req?.user?.userId,
     );
   }
 
@@ -239,7 +239,7 @@ export class RoleManagerController {
   })
   @ApiResponse({ status: 404, description: "Role not found" })
   async getEffectivePermissions(
-    @Param("id") id: string
+    @Param("id") id: string,
   ): Promise<Array<Record<string, any>>> {
     return this.roleManagerService.getEffectivePermissions(id);
   }

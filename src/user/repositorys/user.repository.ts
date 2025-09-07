@@ -20,7 +20,7 @@ export interface PaginatedUsers {
 @Injectable()
 export class UserRepository extends BaseRepository<UserDocument> {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<UserDocument>
+    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
   ) {
     super(userModel);
   }
@@ -31,7 +31,7 @@ export class UserRepository extends BaseRepository<UserDocument> {
 
   async findById<T = UserDocument>(
     id: string | Types.ObjectId,
-    options?: { populate?: string | string[] }
+    options?: { populate?: string | string[] },
   ): Promise<T | null> {
     let query = this.userModel.findById(id);
 
@@ -53,7 +53,7 @@ export class UserRepository extends BaseRepository<UserDocument> {
 
   async updateUserRoles(
     userId: string | Types.ObjectId,
-    roleIds: Types.ObjectId[]
+    roleIds: Types.ObjectId[],
   ): Promise<UserDocument | null> {
     return this.userModel
       .findByIdAndUpdate(userId, { $set: { roles: roleIds } }, { new: true })
@@ -63,7 +63,7 @@ export class UserRepository extends BaseRepository<UserDocument> {
 
   async findByRoleId(
     roleId: string,
-    options: PaginationOptions = {}
+    options: PaginationOptions = {},
   ): Promise<PaginatedUsers> {
     if (!Types.ObjectId.isValid(roleId)) {
       throw new BadRequestException(`${roleId} is not a valid ObjectId`);

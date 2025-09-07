@@ -36,7 +36,7 @@ export const safeNumber = (value: any) =>
 export const safeMap = <T, R>(
   array: T[] | undefined | null,
   mapper: (item: T, index: number) => R,
-  defaultValue: R[] = []
+  defaultValue: R[] = [],
 ): R[] => {
   if (!array || !Array.isArray(array) || array.length === 0) {
     return defaultValue;
@@ -47,7 +47,7 @@ export const safeMap = <T, R>(
 export const safeFilter = <T>(
   array: T[] | undefined | null,
   predicate: (item: T, index: number) => boolean,
-  defaultValue: T[] = []
+  defaultValue: T[] = [],
 ): T[] => {
   if (!array || !Array.isArray(array) || array.length === 0) {
     return defaultValue;
@@ -58,7 +58,7 @@ export const safeFilter = <T>(
 export const safeReduce = <T, R>(
   array: T[] | undefined | null,
   reducer: (accumulator: R, item: T, index: number) => R,
-  initialValue: R
+  initialValue: R,
 ): R => {
   if (!array || !Array.isArray(array) || array.length === 0) {
     return initialValue;
@@ -69,7 +69,7 @@ export const safeReduce = <T, R>(
 export const safeFlatMap = <T, R>(
   array: T[] | undefined | null,
   mapper: (item: T, index: number) => R[],
-  defaultValue: R[] = []
+  defaultValue: R[] = [],
 ): R[] => {
   if (!array || !Array.isArray(array) || array.length === 0) {
     return defaultValue;

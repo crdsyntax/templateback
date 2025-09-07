@@ -10,12 +10,12 @@ import { RoleManagerDocument } from "../role-manager/schemas/role-manager.schema
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly userRepo: UserRepository
+    private readonly userRepo: UserRepository,
   ) {}
 
   async validateUser(
     username: string,
-    password: string
+    password: string,
   ): Promise<UserDocument | null> {
     const user = await this.userRepo.findByUsername(username);
     if (!user) return null;
@@ -35,7 +35,7 @@ export class AuthService {
     const roles = userWithRoles?.roles || [];
     const roleNames: string[] = roles.map(
       (role: Types.ObjectId | RoleManagerDocument) =>
-        role instanceof Types.ObjectId ? "" : role.name
+        role instanceof Types.ObjectId ? "" : role.name,
     );
 
     const payload = {

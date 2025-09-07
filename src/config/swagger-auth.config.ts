@@ -12,7 +12,7 @@ export function setupSwaggerAuth(app: INestApplication) {
           [process.env.SWAGGER_USER || "admin"]:
             process.env.SWAGGER_PASSWORD || "admin123",
         },
-      })
+      }),
     );
   }
 }

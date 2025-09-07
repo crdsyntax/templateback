@@ -5,7 +5,7 @@ export function setupSwagger(app: INestApplication) {
   const config = new DocumentBuilder()
     .setTitle("API de Gestión de Proyectos")
     .setDescription(
-      "Sistema de gestión de proyectos con workflows personalizables"
+      "Sistema de gestión de proyectos con workflows personalizables",
     )
     .setVersion("1.0")
     .addBearerAuth(
@@ -17,7 +17,7 @@ export function setupSwagger(app: INestApplication) {
         description: "Ingrese el token de autenticación JWT",
         in: "header",
       },
-      "access-token"
+      "access-token",
     )
     .build();
 

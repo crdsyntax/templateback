@@ -71,7 +71,7 @@ export class UserService {
   async getUserByRol(
     roleId: string,
     page?: number,
-    limit?: number
+    limit?: number,
   ): Promise<PaginatedUsers> {
     const users = await this.userRepository.findByRoleId(roleId, {
       page,

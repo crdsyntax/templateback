@@ -52,7 +52,7 @@ describe("RoleManagerService", () => {
 
     service = module.get<RoleManagerService>(RoleManagerService);
     roleModel = module.get<Model<RoleManagerDocument>>(
-      getModelToken(RoleManager.name)
+      getModelToken(RoleManager.name),
     );
 
     jest.clearAllMocks();
@@ -101,9 +101,9 @@ describe("RoleManagerService", () => {
       mockRoleModel.findOne.mockResolvedValueOnce(mockRole);
 
       await expect(
-        service.create(createRoleDto, "test-user-id")
+        service.create(createRoleDto, "test-user-id"),
       ).rejects.toThrow(
-        `Role with name '${createRoleDto.name}' already exists`
+        `Role with name '${createRoleDto.name}' already exists`,
       );
     });
   });
@@ -152,7 +152,7 @@ describe("RoleManagerService", () => {
       mockRoleModel.findById.mockResolvedValueOnce(null);
 
       await expect(service.findOne(roleId)).rejects.toThrow(
-        `Role with ID '${roleId}' not found`
+        `Role with ID '${roleId}' not found`,
       );
     });
   });
@@ -182,7 +182,7 @@ describe("RoleManagerService", () => {
           updatedBy: expect.any(Object),
           updatedAt: expect.any(Date),
         },
-        { new: true }
+        { new: true },
       );
       expect(result).toEqual({
         ...mockRole,
@@ -214,7 +214,7 @@ describe("RoleManagerService", () => {
       mockRoleModel.findById.mockResolvedValueOnce(defaultRole);
 
       await expect(service.remove("1")).rejects.toThrow(
-        "Cannot delete default role"
+        "Cannot delete default role",
       );
     });
   });

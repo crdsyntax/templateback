@@ -24,7 +24,8 @@ import { UserRole } from "../enums/user-role.enum";
 @Injectable()
 export class RoleManagerService {
   constructor(
-    @InjectModel(RoleManager.name) private roleModel: Model<RoleManagerDocument>
+    @InjectModel(RoleManager.name)
+    private roleModel: Model<RoleManagerDocument>,
   ) {}
 
   private toRoleResponse(role: RoleManagerDocument): RoleResponseDto {
@@ -33,14 +34,14 @@ export class RoleManagerService {
 
   async create(
     createRoleDto: CreateRoleDto,
-    userId: string
+    userId: string,
   ): Promise<RoleResponseDto> {
     const existingRole = await this.roleModel
       .findOne({ name: createRoleDto.name })
       .exec();
     if (existingRole) {
       throw new ConflictException(
-        `Role with name '${createRoleDto.name}' already exists`
+        `Role with name '${createRoleDto.name}' already exists`,
       );
     }
 
@@ -62,10 +63,10 @@ export class RoleManagerService {
       if (existingRoles.length !== inheritedRoles.length) {
         const existingRoleNames = existingRoles.map((r) => r.name);
         const missingRoles = inheritedRoles.filter(
-          (name) => !existingRoleNames.includes(UserRole[name])
+          (name) => !existingRoleNames.includes(UserRole[name]),
         );
         throw new BadRequestException(
-          `The following roles do not exist: ${missingRoles.join(", ")}`
+          `The following roles do not exist: ${missingRoles.join(", ")}`,
         );
       }
     }
@@ -90,7 +91,7 @@ export class RoleManagerService {
     page = 1,
     limit = 10,
     search?: string,
-    isActive?: boolean
+    isActive?: boolean,
   ): Promise<{ data: RoleResponseDto[]; total: number }> {
     const query: any = {};
 
@@ -137,7 +138,7 @@ export class RoleManagerService {
   async update(
     id: string,
     updateRoleDto: UpdateRoleDto,
-    userId: string
+    userId: string,
   ): Promise<RoleResponseDto> {
     const role = await this.roleModel.findById(id).exec();
     if (!role) {
@@ -151,7 +152,7 @@ export class RoleManagerService {
       await this.roleModel
         .updateMany(
           { _id: { $ne: id }, isDefault: true },
-          { $set: { isDefault: false } }
+          { $set: { isDefault: false } },
         )
         .exec();
     }
@@ -168,10 +169,10 @@ export class RoleManagerService {
       if (existingRoles.length !== inheritedRoles.length) {
         const existingRoleNames = existingRoles.map((r) => r.name);
         const missingRoles = inheritedRoles.filter(
-          (name) => !existingRoleNames.includes(UserRole[name])
+          (name) => !existingRoleNames.includes(UserRole[name]),
         );
         throw new BadRequestException(
-          `The following roles do not exist: ${missingRoles.join(", ")}`
+          `The following roles do not exist: ${missingRoles.join(", ")}`,
         );
       }
 
@@ -182,7 +183,7 @@ export class RoleManagerService {
         const currentRoleName = stack.pop()!;
         if (visited.has(currentRoleName)) {
           throw new BadRequestException(
-            "Circular dependency detected in role inheritance"
+            "Circular dependency detected in role inheritance",
           );
         }
         visited.add(currentRoleName);
@@ -235,7 +236,7 @@ export class RoleManagerService {
   async updatePermissions(
     id: string,
     updateDto: UpdateRolePermissionsDto,
-    userId: string
+    userId: string,
   ): Promise<RoleResponseDto> {
     const role = await this.roleModel.findById(id).exec();
     if (!role) {
@@ -271,7 +272,7 @@ export class RoleManagerService {
   async updateStatus(
     id: string,
     updateStatusDto: UpdateRoleStatusDto,
-    userId: string
+    userId: string,
   ): Promise<RoleResponseDto> {
     const role = await this.roleModel.findById(id).exec();
     if (!role) {
@@ -290,7 +291,7 @@ export class RoleManagerService {
           updatedBy: new Types.ObjectId(userId),
           updatedAt: new Date(),
         },
-        { new: true }
+        { new: true },
       )
       .exec();
 
@@ -314,7 +315,7 @@ export class RoleManagerService {
     const userCount = await this.roleModel.countDocuments({ "roles.role": id });
     if (userCount > 0) {
       throw new ConflictException(
-        `Cannot delete role '${role.name}' as it is assigned to ${userCount} user(s)`
+        `Cannot delete role '${role.name}' as it is assigned to ${userCount} user(s)`,
       );
     }
 

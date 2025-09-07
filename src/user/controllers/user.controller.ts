@@ -37,7 +37,7 @@ export class UserController {
   @ApiResponse({ status: 400, description: "Bad request" })
   @ApiResponse({ status: 409, description: "Username already exists" })
   async createUser(
-    @Body() body: CreateUserDTO
+    @Body() body: CreateUserDTO,
   ): Promise<{ message: string; id: string }> {
     return this.userService.create(body);
   }
@@ -85,7 +85,7 @@ export class UserController {
   async findByRole(
     @Param("id") id: string,
     @Query("page") page?: string,
-    @Query("limit") limit?: string
+    @Query("limit") limit?: string,
   ) {
     const pageNumber = page ? parseInt(page, 10) : undefined;
     const limitNumber = limit ? parseInt(limit, 10) : undefined;
@@ -102,7 +102,7 @@ export class UserController {
   @ApiResponse({ status: 404, description: "User not found" })
   async assignRoles(
     @Param("id") id: string,
-    @Body() assignRolesDto: AssignRolesDto
+    @Body() assignRolesDto: AssignRolesDto,
   ) {
     return this.userService.assignRoles(id, assignRolesDto);
   }
