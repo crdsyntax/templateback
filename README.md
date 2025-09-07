@@ -23,27 +23,70 @@
 
 ## Description
 
-This project is a backend template built with NestJS and MongoDB, intended as a solid starting point for building APIs.
-As a reference implementation, it does not guarantee to be free of security vulnerabilities.
+This project is a robust backend template built with NestJS and MongoDB, designed to accelerate API development with production-ready features. It implements a secure, scalable architecture with comprehensive authentication and role-based access control (RBAC) out of the box.
 
-The code includes features like JWT authentication, data validation, and environment-based configuration.
+Key features include:
+- 🔐 JWT-based authentication with refresh tokens
+- 👥 Role-based access control (RBAC)
+- 🛡️ Security best practices (Helmet, CORS, Rate Limiting)
+- 📝 API documentation with Swagger
+- 🧪 Comprehensive test coverage
+- 🔄 Database migrations and seeders
+- 🚀 Docker support for development and production
 
-Do not use this project in production without a proper security review and the implementation of additional best practices (e.g., HTTP security headers, encryption in transit and at rest, dependency audits).
-
-If you discover a vulnerability, please report it by following the instructions in SECURITY.md
+⚠️ **Security Note**: While this template implements security best practices, always conduct a thorough security review before deploying to production. If you discover any vulnerabilities, please report them by following the instructions in SECURITY.md
 
 ## 🚀 Tech Stack
 
+### Core
 - **Framework**: [NestJS](https://nestjs.com/) (v11)
 - **Language**: TypeScript
-- **Database**: MongoDB with Mongoose
-- **Authentication**: JWT with Passport
+- **Runtime**: Node.js (LTS)
+- **Package Manager**: pnpm
+
+### Database
+- **Primary DB**: MongoDB with Mongoose ODM
+
+### Authentication & Authorization
+- **Authentication**: JWT with Passport.js
+- **Password Hashing**: bcrypt
+- **Rate Limiting**: @nestjs/throttler
+- **Security**: Helmet, CORS, CSRF protection
+
+### API & Documentation
 - **API Documentation**: Swagger/OpenAPI
 - **Validation**: Class Validator & Class Transformer
-- **Testing**: Jest (Unit & E2E tests)
-- **Code Quality**: ESLint & Prettier
-- **Task Scheduling**: @nestjs/schedule
-- **Environment Management**: @nestjs/config
+- **Serialization**: Class Transformer
+- **Request Validation**: DTOs with decorators
+
+### Development Tools
+- **Testing**: Jest (Unit, Integration, E2E)
+- **Code Quality**: ESLint, Prettier, Husky
+- **CI/CD**: GitHub Actions
+
+## 🔐 Authentication & Authorization
+
+### Authentication Flow
+1. User logs in with credentials
+2. Server validates credentials and issues JWT access token and refresh token
+3. Access token is used for API authorization (short-lived)
+4. Refresh token is used to obtain new access tokens (long-lived)
+
+### Role-Based Access Control (RBAC)
+- **Admin**: Full system access
+- **Manager**: Manage users and content
+- **User**: Basic access with limited permissions
+- **Guest**: Read-only access (if applicable)
+
+### Protected Routes
+```typescript
+@Controller('protected')
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles('admin', 'manager')
+export class ProtectedController {
+  // Controller methods
+}
+```
 
 ## 🛠️ Project Setup
 
@@ -114,12 +157,55 @@ Once the application is running, you can access the interactive API documentatio
 
 ```
 src/
-├── auth/               # Authentication module
-├── common/             # Common utilities and shared code
-├── config/             # Application configuration
-├── event-failure/      # Event failure handling
-├── user/               # User management
-└── main.ts             # Application entry point
+├── auth/                   # Authentication module
+│   ├── decorators/         # Custom decorators
+│   ├── dto/               # Data Transfer Objects
+│   ├── guards/            # Authentication guards
+│   ├── tests/             # Test files
+│   └── *.ts               # Core auth files
+│
+├── chat/                   # Chat module
+│   ├── controllers/       # Request handlers
+│   ├── dto/              # Data Transfer Objects
+│   ├── gateways/         # WebSocket gateways
+│   ├── schemas/          # Database schemas
+│   ├── services/         # Business logic
+│   └── tests/            # Test files
+│
+├── common/                # Shared utilities
+│   ├── middleware/       # Global middleware
+│   ├── schemas/          # Common schemas
+│   ├── services/         # Shared services
+│   └── types/            # TypeScript types
+│
+├── config/                # Application configuration
+│   ├── *.config.ts       # Configuration files
+│   └── database/         # Database configuration
+│
+├── event-failure/         # Event failure handling
+│   ├── controllers/      # Request handlers
+│   ├── dto/             # Data Transfer Objects
+│   ├── schemas/         # Database schemas
+│   └── services/        # Business logic
+│
+├── role-manager/          # Role management
+│   ├── controllers/      # Request handlers
+│   ├── dto/             # Data Transfer Objects
+│   ├── enums/           # Enumerations
+│   ├── schemas/         # Database schemas
+│   ├── services/        # Business logic
+│   └── tests/           # Test files
+│
+├── user/                  # User management
+│   ├── controllers/      # Request handlers
+│   ├── dto/             # Data Transfer Objects
+│   ├── repositorys/     # Data access layer
+│   ├── schemas/         # Database schemas
+│   ├── services/        # Business logic
+│   └── tests/           # Test files
+│
+├── app.module.ts         # Root module
+└── main.ts              # Application entry point
 ```
 
 ## 🤝 Contributing
