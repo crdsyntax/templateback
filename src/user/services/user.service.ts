@@ -1,7 +1,13 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { CreateUserDTO } from "../dto/create-user.dto";
-import { UserRepository } from "../repositorys/user.repository";
+import { PaginatedUsers, UserRepository } from "../repositorys/user.repository";
 import * as bcrypt from "bcryptjs";
+import { Types } from "mongoose";
+import { AssignRolesDto } from "../dto/assign-roles.dto";
 
 @Injectable()
 export class UserService {
@@ -33,5 +39,49 @@ export class UserService {
 
   async delete(id: string) {
     return this.userRepository.delete(id);
+  }
+
+  async findById(id: string) {
+    const user = await this.userRepository.findById(id);
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return user;
+  }
+
+  async assignRoles(userId: string, assignRolesDto: AssignRolesDto) {
+    const user = await this.findById(userId);
+
+    const roleIds = assignRolesDto.roles.map((id) => new Types.ObjectId(id));
+    user.roles = roleIds;
+    await user.save();
+    return { message: "Roles assigned successfully" };
+  }
+
+  async getUserWithRoles(userId: string) {
+    const user = await this.userRepository.findById(userId, {
+      populate: "roles",
+    });
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+    return user;
+  }
+
+  async getUserByRol(
+    roleId: string,
+    page?: number,
+    limit?: number
+  ): Promise<PaginatedUsers> {
+    const users = await this.userRepository.findByRoleId(roleId, {
+      page,
+      limit,
+    });
+
+    if (users.data.length === 0) {
+      throw new NotFoundException(`No users found with role ID ${roleId}`);
+    }
+
+    return users;
   }
 }

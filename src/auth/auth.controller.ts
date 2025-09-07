@@ -1,6 +1,9 @@
-import { Controller, Post, Body, UnauthorizedException } from "@nestjs/common";
+import { Controller, Post, Body, UseGuards, Request } from "@nestjs/common";
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { AuthService } from "./auth.service";
-import { ApiBody, ApiOperation, ApiTags } from "@nestjs/swagger";
+import { LocalAuthGuard } from "./guards/local-auth.guard";
+import { LoginDto } from "./dto/login.dto";
+import { LoginResponseDto } from "./dto/login-response.dto";
 
 @ApiTags("Autenticated")
 @Controller("auth")
@@ -8,28 +11,22 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post("login")
+  @UseGuards(LocalAuthGuard)
   @ApiOperation({
-    summary: "Autenticacion de usuario",
-    description: "Autenticacion con `username` y `password`",
+    summary: "Autenticación de usuario",
+    description: "Autenticación con `username` y `password`",
   })
-  @ApiBody({
-    description: "Usuario y contraseña para autenticación",
-    schema: {
-      type: "object",
-      properties: {
-        username: { type: "string", example: "johndoe" },
-        password: { type: "string", example: "supersecret" },
-      },
-      required: ["username", "password"],
-    },
+  @ApiBody({ type: LoginDto })
+  @ApiResponse({
+    status: 200,
+    description: "Usuario autenticado exitosamente",
+    type: LoginResponseDto,
   })
-  async login(@Body() body: { username: string; password: string }) {
-    const user = await this.authService.validateUser(
-      body.username,
-      body.password,
-    );
-    if (!user) throw new UnauthorizedException("Invalid credentials");
-
-    return this.authService.login(user);
+  @ApiResponse({
+    status: 401,
+    description: "Credenciales inválidas",
+  })
+  async login(@Request() req): Promise<LoginResponseDto> {
+    return this.authService.login(req.user);
   }
 }

@@ -41,7 +41,7 @@ export class HttpLoggerMiddleware implements NestMiddleware {
           });
 
           this.logger.log(
-            `[${logId}] ${method} ${request.originalUrl} ${statusCode} ${responseTime}ms`,
+            `[${logId}] ${method} ${request.originalUrl} ${statusCode} ${responseTime}ms`
           );
         } catch (error) {
           this.logger.error("Error updating request log:", error);
